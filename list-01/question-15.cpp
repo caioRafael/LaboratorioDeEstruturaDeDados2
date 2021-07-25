@@ -11,6 +11,7 @@ int main() {
     point(lado1, lado2);
 
     return 0;
+    
 }
 
 void point (int lado1, int lado2){
