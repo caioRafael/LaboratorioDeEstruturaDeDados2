@@ -4,37 +4,29 @@ int isPerfect(int *number);
 int main(void)
 {
 
-  int *number;
+  int *number = (int *)malloc(sizeof(int));
+  *number = 1;
+  while (*number <= 1000)
+  {
+    if (isPerfect(number))
+      printf("%d é perfeito\n\n", *number);
 
-  setlocale(LC_ALL, "Portuguese");
-
-  number = (int *)malloc(sizeof(int));
-
-  printf("\nDigite um número natural: ");
-  scanf("%d", number);
-
-  if (isPerfect(number))
-    printf("%d é perfeito\n\n", *number);
-  else
-    printf("%d não é perfeito\n\n", *number);
+    *number += 1;
+  }
 
   return 0;
 }
 
 int isPerfect(int *number)
 {
+  int sum = 0;
 
-  size_t i; /* Boa prática para laços: usar size_t */
-  int sum;
-
-  sum = 0;
-
-  for (i = 1; i < (size_t)*number; ++i)
+  for (int i = 1; i < *number; ++i)
     if (*number % i == 0)
       sum += i;
 
   if (sum == *number && *number > 0)
-    return 1; /* É perfeito */
+    return 1;
   else
-    return 0; /* Não é perfeito */
+    return 0;
 }
