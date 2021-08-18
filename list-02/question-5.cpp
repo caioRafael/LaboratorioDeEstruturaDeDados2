@@ -6,12 +6,11 @@ avaliado durante a procura de fib(n). (Considere k<n)
 int cont = 0;
 int contFib(int n, int k)
 {
-    int resul;
     if (n == k)
     {
         cont++;
     }
-    else if ((n != 1) && (n != 0))
+    if ((n != 1) && (n != 0))
     {
         contFib(n - 1, k);
         contFib(n - 2, k);
@@ -23,11 +22,11 @@ int main()
     int n, k;
     printf("Digite valores para fib(n,k):\n");
     scanf("%d %d", &n, &k);
-    // while (n > k)
-    // {
-    //     printf("ERRO: k não é menor que N. Repita:\n");
-    //     printf("Digite valores para fib(n,k):\n");
-    //     scanf("%d %d", &n, &k);
-    // }
+    while (k > n)
+    {
+        printf("ERRO: k não é menor que N. Repita:\n");
+        printf("Digite valores para fib(n,k):\n");
+        scanf("%d %d", &n, &k);
+    }
     printf("fib(%d,%d)= %d vezes\n", n, k, contFib(n, k));
 }
