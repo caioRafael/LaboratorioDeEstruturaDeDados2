@@ -23,5 +23,11 @@ int main()
     int n, k;
     printf("Digite valores para fib(n,k):\n");
     scanf("%d %d", &n, &k);
+    // while (n > k)
+    // {
+    //     printf("ERRO: k não é menor que N. Repita:\n");
+    //     printf("Digite valores para fib(n,k):\n");
+    //     scanf("%d %d", &n, &k);
+    // }
     printf("fib(%d,%d)= %d vezes\n", n, k, contFib(n, k));
 }
