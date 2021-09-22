@@ -1,32 +1,56 @@
 #include <stdio.h>
+#define TAMANHO 8
 typedef struct
 {
     int chave;
 } HASH;
-HASH hash[8];
+HASH hash[TAMANHO];
+
 void inicializa_hash()
 {
 
-    for (int i = 0; i < 8; i++)
+    for (int i = 0; i < TAMANHO; i++)
     {
         hash[i].chave = -1;
     }
 }
-int resto_divisao(int chave)
+int hash_divisao(int chave)
 {
-    return chave % 8;
+    return chave % TAMANHO;
 }
-HASH inserir()
+int hash_dobra(int chave)
+{
+    int total_digitos_bin = 10;
+    int p1 = chave >> total_digitos_bin;
+    int p2 = chave & (TAMANHO - 1);
+    return (p1 ^ p2);
+}
+int hash_multi(int chave)
+{
+}
+HASH preencher()
 {
     HASH h;
     printf("Digite uma chave:\n");
     scanf("%d", &h.chave);
     return h;
 }
-void inserir_divisao()
+void inserir(int metodo)
 {
-    HASH h = inserir();
-    int resto = resto_divisao(h.chave);
+    HASH h = preencher();
+    int resto;
+    if (metodo == 1)
+    {
+        resto = hash_dobra(h.chave);
+    }
+    else if (metodo == 2)
+    {
+        //nada
+    }
+    else if (metodo == 3)
+    {
+        resto = hash_divisao(h.chave);
+    }
     if (hash[resto].chave == -1)
     {
         hash[resto].chave = h.chave;
@@ -34,61 +58,71 @@ void inserir_divisao()
 }
 void mostrar()
 {
-    printf("---------\n");
-    for (int i = 0; i < 8; i++)
+    printf("---------TABELA HASH-------------\n");
+    for (int i = 0; i < TAMANHO; i++)
     {
         if (hash[i].chave != -1)
         {
-            printf("pos: %d\tchave:%d\n", i, hash[i].chave);
+            printf("pos: %d\tchave: %d\n", i, hash[i].chave);
         }
         else
         {
+            //imprime a posição mesmo n tendo nada
             printf("pos: %d\n", i);
         }
     }
 }
 void menu()
 {
-    printf("Tamanho do vetor: %d\n\n", 8);
+    printf("Tamanho do vetor: %d\n\n", TAMANHO);
     printf("1 - Funcao dobra\n");
     printf("2 - Funcao Multiplicacao\n");
     printf("3 - funcao divisao\n");
     printf("0 - SAIR\n");
 }
+void analisa(int opc)
+{
+    int continuar;
+    do
+    {
+        inserir(opc);
+        printf("1 - Adicionar outro\n0 - SAIR\n");
+        scanf("%d", &continuar);
+        while (continuar != 1 && continuar != 0)
+        {
+            printf("ERRO! Digite novamente:\n");
+            printf("1 - Adicionar outro\n0 - SAIR\n");
+            scanf("%d", &continuar);
+        }
+
+    } while (continuar == 1);
+}
 int main()
 {
     int opc;
-    do
-    {
-        inicializa_hash();
 
-        menu();
-        scanf("%d", &opc);
-        switch (opc)
-        {
-        case 1:
-            printf("AINDA FALTA\n");
-            break;
-        case 2:
-            printf("AINDA FALTA\n");
-            break;
-        case 3:
-            inserir_divisao();
-            inserir_divisao();
-            inserir_divisao();
-            inserir_divisao();
-            inserir_divisao();
-            inserir_divisao();
-            mostrar();
-            break;
-        case 0:
-            system("clear");
-            printf("vc saiu...\n");
-            break;
-        default:
-            printf("opccao invalida\n");
-            break;
-        }
-        printf("\n");
-    } while (opc != 0);
+    inicializa_hash();
+    menu();
+    scanf("%d", &opc);
+    if (opc == 1)
+    {
+        analisa(opc);
+        mostrar();
+    }
+    else if (opc == 2)
+    {
+        analisa(opc);
+        mostrar();
+    }
+    else if (opc == 3)
+    {
+        analisa(opc);
+        mostrar();
+    }
+    else
+    {
+        system("clear");
+        printf("vc saiu...\n");
+    }
+    printf("\n");
 }
