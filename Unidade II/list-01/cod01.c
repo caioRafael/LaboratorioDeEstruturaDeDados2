@@ -109,14 +109,14 @@ int hash_mult(int chave)
 
     } while (chave2 != 0);
 
-    int total[32], diferença = 32 - tamanho; //32 digitos cada chave deve ter
+    int total[TAMANHO], diferença = TAMANHO - tamanho; //32 digitos cada chave deve ter
     //diferença = total de numeros que falta pra preencher as 32 posicoes da chave
     for (int i = 0; i < diferença; i++)
     {
         total[i] = 0;
     }
     int inicio = 0;
-    for (int i = diferença; i < 32; i++)
+    for (int i = diferença; i < TAMANHO; i++)
     {
         total[i] = qtd_binarios[inicio];
         inicio++;
