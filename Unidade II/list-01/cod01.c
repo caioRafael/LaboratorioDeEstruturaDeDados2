@@ -240,7 +240,6 @@ int main()
     }
     else
     {
-        system("clear");
         printf("vc saiu...\n");
     }
     printf("\n");
