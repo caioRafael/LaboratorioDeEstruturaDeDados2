@@ -46,7 +46,6 @@ int hash_dobra(int chave)
 
     int qtd_binarios[tamanho];
     j = tamanho - 1;
-    //vai de tamanho até o 1, por isso tem o -1 pra ir do tamanho -1 ao 0
     do
     {
         qtd_binarios[j] = chave2 % 2;
@@ -55,7 +54,7 @@ int hash_dobra(int chave)
 
     } while (chave2 != 0);
 
-    int total[10], diferença = 10 - tamanho; //10 digitos cada chave deve ter
+    int total[10], diferença = 10 - tamanho;
     for (int i = 0; i < diferença; i++)
     {
         total[i] = 0;
@@ -66,7 +65,6 @@ int hash_dobra(int chave)
         total[i] = qtd_binarios[inicio];
         inicio++;
     }
-    //vet[10] preechido
 
     int p1 = 0, p2 = 0; //metade 1 e metade 2 do vetor de 10 auxsicoes
                         //primeira metade
@@ -88,7 +86,6 @@ int hash_dobra(int chave)
 }
 int hash_mult(int chave)
 {
-    //Tamanho hash 32 tem 6 bits,logo pega os 6 do meio
     int aux = chave * chave, tamanho = 0, j; //recebe chave^2
     int chave2 = chave * chave;
 
@@ -100,7 +97,6 @@ int hash_mult(int chave)
 
     int qtd_binarios[tamanho];
     j = tamanho - 1;
-    //tamanho-1 pois o vetor inicia do 0
     do
     {
         qtd_binarios[j] = chave2 % 2;
@@ -109,8 +105,7 @@ int hash_mult(int chave)
 
     } while (chave2 != 0);
 
-    int total[TAMANHO], diferença = TAMANHO - tamanho; //32 digitos cada chave deve ter
-    //diferença = total de numeros que falta pra preencher as 32 posicoes da chave
+    int total[TAMANHO], diferença = TAMANHO - tamanho;
     for (int i = 0; i < diferença; i++)
     {
         total[i] = 0;
@@ -122,7 +117,7 @@ int hash_mult(int chave)
         inicio++;
     }
     int meio[6];
-    int l = 13; //comeca na posição 14, que no vetor é 13
+    int l = 13;
     for (int i = 0; i < 6; i++)
     {
         meio[i] = total[l];
@@ -139,16 +134,11 @@ int hash_mult(int chave)
     }
     return numero_meio;
 }
-HASH preencher()
+
+void inserir(int metodo, int chave)
 {
     HASH h;
-    printf("Digite uma chave:\n");
-    scanf("%d", &h.chave);
-    return h;
-}
-void inserir(int metodo)
-{
-    HASH h = preencher();
+    h.chave = chave;
     int resto;
     if (metodo == 1)
     {
@@ -179,7 +169,6 @@ void mostrar()
         }
         else
         {
-            //imprime a posição mesmo n tendo nada
             printf("pos: %d\n", i);
         }
     }
@@ -194,24 +183,7 @@ void menu()
     printf("0 ou >3  - SAIR\n");
     printf("-----------------------------------\n");
 }
-void analisa(int opc)
-{
-    int continuar;
-    do
-    {
-        inserir(opc);
-        printf("1 - Adicionar outro\n0 - SAIR\n");
-        scanf("%d", &continuar);
-        while (continuar != 1 && continuar != 0)
-        {
-            printf("ERRO! Digite novamente:\n");
-            printf("1 - Adicionar outro\n0 - SAIR\n");
-            scanf("%d", &continuar);
-        }
 
-    } while (continuar == 1);
-    printf("\n");
-}
 int main()
 {
     int opc;
@@ -221,23 +193,48 @@ int main()
     scanf("%d", &opc);
     if (opc == 1)
     {
-        analisa(opc);
+        inserir(opc, 71);
+        inserir(opc, 46);
+        inserir(opc, 15); //não insere
+        inserir(opc, 28);
+        inserir(opc, 56);
+        inserir(opc, 120);
+        inserir(opc, 9);
+        inserir(opc, 21);
         printf("FUNCAO HASH DOBRA:\n");
         mostrar();
     }
     else if (opc == 2)
     {
-        analisa(opc);
+        inserir(opc, 40);
+        inserir(opc, 120);
+        inserir(opc, 135);
+        inserir(opc, 200);
+        inserir(opc, 215);
+        inserir(opc, 500);
+        inserir(opc, 400);
+        inserir(opc, 310);
+        inserir(opc, 490);
+        inserir(opc, 140); //não insere
         printf("FUNCAO HASH MULTIPLICACAO:\n");
         mostrar();
     }
     else if (opc == 3)
     {
-        analisa(opc);
+        inserir(opc, 33);
+        inserir(opc, 64);
+        inserir(opc, 15);
+        inserir(opc, 16);
+        inserir(opc, 21);
+        inserir(opc, 40);
+        inserir(opc, 5);
+        inserir(opc, 63);
+        inserir(opc, 37); //esse não prenche pois ja tem um elemento na posicao 5
         printf("FUNCAO HASH DIVISAO:\n");
         mostrar();
     }
     else
+
     {
         printf("vc saiu...\n");
     }
